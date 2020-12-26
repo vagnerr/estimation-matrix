@@ -9,7 +9,9 @@ const canvasY = 500;
 
 function setup() {
   // put setup code here
-  createCanvas(canvasX,canvasY);
+  var canvas = createCanvas(canvasX,canvasY);
+  canvas.parent('sketch-holder');
+
   background(51);
   resetCanvas();
 
