@@ -54,6 +54,9 @@ function newConnection(socket) {
   function receiveUserName(data) {
     console.log('Name: ' + data.name);
     state['name'][socket.id] = data.name;
+    // sent all the data back on every keypress for the moment.
+    // noisy and inefficient, but will do for POC
+    io.sockets.emit('users',state['name']);
   }
 }
 

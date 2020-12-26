@@ -20,6 +20,7 @@ function setup() {
   socket.on('show', revealAll);
   socket.on('hide', hideCanvas);
   socket.on('reset', resetCanvas);
+  socket.on('users', updateUsers)
 }
 
 
@@ -150,4 +151,17 @@ function sendName() {
     name: document.getElementById('userName').value
   }
   socket.emit('name', data);
+}
+
+function updateUsers(data){
+  console.log('Got user list data',data)
+  var users = document.getElementById('users')
+  console.log(typeof(data))
+  var userhtml = ""
+  for(var index in data){
+    userhtml += `<li>${data[index]}</li>`
+  }
+  console.log(userhtml)
+  users.innerHTML = "<p>UserData</p><ul>" + userhtml + "</ul>"
+
 }
