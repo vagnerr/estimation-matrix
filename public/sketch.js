@@ -20,7 +20,21 @@ function setup() {
   socket.on('show', revealAll);
   socket.on('hide', hideCanvas);
   socket.on('reset', resetCanvas);
-  socket.on('users', updateUsers)
+  socket.on('users', updateUsers);
+
+  // Check the content of the Name field and send
+  // if its not blank. That way should the connection
+  // be lost and re-established (server goes away) the
+  // user will be re-registered.
+  socket.on('reconnect', function () {
+    console.log('you have been reconnected');
+    if (document.getElementById('userName').value!=''){
+      console.log("resending name");
+      sendName();
+    }else{
+      console.log("no name to send");
+    }
+  });
 }
 
 
@@ -159,9 +173,9 @@ function updateUsers(data){
   console.log(typeof(data))
   var userhtml = ""
   for(var index in data){
-    userhtml += `<li>${data[index]}</li>`
+    userhtml += `<li class='list-group-item ${data[index]['active']?"":" disabled"} ${data[index]['voted']?" list-group-item-success":""} '>${data[index]['name']}</li>`
   }
   console.log(userhtml)
-  users.innerHTML = "<p>UserData</p><ul>" + userhtml + "</ul>"
+  users.innerHTML = "<p>Users</p><ul class='list-group list-group-flush'>" + userhtml + "</ul>"
 
 }
