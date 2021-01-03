@@ -1,5 +1,6 @@
 //const { text } = require("express");
 
+
 var socket;
 var visible     = false;
 var lastdata    = null;    // Last dataset of all users choices
@@ -9,7 +10,9 @@ const canvasY = 500;
 
 function setup() {
   // put setup code here
-  createCanvas(canvasX,canvasY);
+  var canvas = createCanvas(canvasX,canvasY);
+  canvas.parent('sketch-holder');
+
   background(51);
   resetCanvas();
 
@@ -18,6 +21,23 @@ function setup() {
   socket.on('show', revealAll);
   socket.on('hide', hideCanvas);
   socket.on('reset', resetCanvas);
+  socket.on('users', updateUsers);
+
+  // Check the content of the Name field and send
+  // if its not blank. That way should the connection
+  // be lost and re-established (server goes away) the
+  // user will be re-registered.
+  socket.on('reconnect', function () {
+    console.log('you have been reconnected');
+    if (document.getElementById('userName').value!=''){
+      console.log("resending name");
+      sendName();
+    }else{
+      console.log("no name to send");
+    }
+  });
+
+
 }
 
 
@@ -148,4 +168,15 @@ function sendName() {
     name: document.getElementById('userName').value
   }
   socket.emit('name', data);
+}
+
+function updateUsers(data){
+  console.log('Got user list data',data)
+  var users = document.getElementById('users')
+  var userhtml = ""
+  for(var index in data){
+    userhtml += `<li class='list-group-item ${data[index]['active']?"":" disabled"} ${data[index]['voted']?" list-group-item-success":""} '>${data[index]['name']}</li>`
+  }
+  users.innerHTML = "<p>Users</p><ul class='list-group list-group-flush'>" + userhtml + "</ul>"
+
 }
