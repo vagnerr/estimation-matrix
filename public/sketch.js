@@ -1,5 +1,6 @@
 //const { text } = require("express");
 
+
 var socket;
 var visible     = false;
 var lastdata    = null;    // Last dataset of all users choices
@@ -35,6 +36,8 @@ function setup() {
       console.log("no name to send");
     }
   });
+
+
 }
 
 
@@ -170,12 +173,10 @@ function sendName() {
 function updateUsers(data){
   console.log('Got user list data',data)
   var users = document.getElementById('users')
-  console.log(typeof(data))
   var userhtml = ""
   for(var index in data){
     userhtml += `<li class='list-group-item ${data[index]['active']?"":" disabled"} ${data[index]['voted']?" list-group-item-success":""} '>${data[index]['name']}</li>`
   }
-  console.log(userhtml)
   users.innerHTML = "<p>Users</p><ul class='list-group list-group-flush'>" + userhtml + "</ul>"
 
 }
