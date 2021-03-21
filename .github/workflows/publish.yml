@@ -1,0 +1,19 @@
+name: publish
+
+on: [push]
+
+jobs:
+  publish-estimation-matrix-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build the estimation-matrix Docker image and publish to GH
+      run: |
+        echo $CR_PAT | docker login ghcr.io -u vagnerr --password-stdin
+        docker build . --tag ghcr.io/vagnerr/estimation-matrix:latest
+        docker run ghcr.io/vagnerr/estimation-matrix:latest
+        docker push ghcr.io/vagnerr/estimation-matrix:latest
+      env:
+        CR_PAT: ${{ secrets.CR_PAT }}
