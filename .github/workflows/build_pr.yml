@@ -13,7 +13,7 @@ jobs:
     - name: Get the PR Number
       id:  get_pr
       run: |
-        TEMP_REF=${GITHUB_REF/refs\/tags\//}
+        TEMP_REF=`echo ${GITHUB_REF/refs\/tags\//}`
         echo ::set-output name=PR_NUMBER::${TEMP_REF/\/merge/}
       
     - name: Build the estimation-matrix Docker image and publish to GH as a PR release
