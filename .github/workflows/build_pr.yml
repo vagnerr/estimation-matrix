@@ -21,7 +21,7 @@ jobs:
     - name: Build the estimation-matrix Docker image and publish to GH as a PR release
       run: |
         echo $CR_PAT | docker login ghcr.io -u vagnerr --password-stdin
-        docker build . --tag ghcr.io/vagnerr/estimation-matrix:${{ steps.get_pr.outputs.PR_NUMBER }}
+        docker build . --tag ghcr.io/vagnerr/estimation-matrix:PR-${{ steps.get_pr.outputs.PR_NUMBER }}
         docker push ghcr.io/vagnerr/estimation-matrix --all-tags
       env:
         CR_PAT: ${{ secrets.CR_PAT }}
