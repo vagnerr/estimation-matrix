@@ -20,6 +20,6 @@ jobs:
       run: |
         echo $CR_PAT | docker login ghcr.io -u vagnerr --password-stdin
         docker build . --tag ghcr.io/vagnerr/estimation-matrix:latest --tag ${{ steps.get_version.outputs.VERSION }}
-        docker push ghcr.io/vagnerr/estimation-matrix:latest
+        docker push ghcr.io/vagnerr/estimation-matrix --all-tags
       env:
         CR_PAT: ${{ secrets.CR_PAT }}
