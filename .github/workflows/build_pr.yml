@@ -1,0 +1,23 @@
+name: build_pr
+
+on: 
+  [pull_request]
+
+jobs:
+  publish-estimation-matrix-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get the PR Number
+      id:  get_pr
+      run: echo ::set-output name=PR_NUMBER::${GITHUB_REF/refs\/pull\/(.*)\/merge/$1/}
+      
+    - name: Build the estimation-matrix Docker image and publish to GH as a PR release
+      run: |
+        echo $CR_PAT | docker login ghcr.io -u vagnerr --password-stdin
+        docker build . --tag ghcr.io/vagnerr/estimation-matrix:${{ steps.get_pr.outputs.PR_NUMBER }}
+        docker push ghcr.io/vagnerr/estimation-matrix --all-tags
+      env:
+        CR_PAT: ${{ secrets.CR_PAT }}
