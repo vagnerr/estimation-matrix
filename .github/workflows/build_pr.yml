@@ -4,7 +4,7 @@ on:
   [pull_request]
 
 jobs:
-  publish-estimation-matrix-image:
+  publish-pr-image:
     runs-on: ubuntu-latest
 
     steps:
