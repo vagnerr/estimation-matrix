@@ -13,7 +13,7 @@ jobs:
     - name: Get the PR Number
       id:  get_pr
       run: |
-        TEMP_REF=`echo ${GITHUB_REF/refs\/tags\//}`
+        TEMP_REF=${GITHUB_REF/refs\/pull\//}
         echo ::set-output name=PR_NUMBER::${TEMP_REF/\/merge/}
         echo $TEMP_REF
         echo $PR_NUMBER
