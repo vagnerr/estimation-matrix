@@ -12,7 +12,7 @@ jobs:
 
     - name: Get the PR Number
       id:  get_pr
-      run: echo ::set-output name=PR_NUMBER::${GITHUB_REF/refs\/pull\/(.*)\/merge/$1/}
+      run: echo ::set-output name=PR_NUMBER::${GITHUB_REF/refs\/pull\///}
       
     - name: Build the estimation-matrix Docker image and publish to GH as a PR release
       run: |
