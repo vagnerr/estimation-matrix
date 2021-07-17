@@ -4,5 +4,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
+ARG BUILD_VERSION=Unknown
+RUN echo $BUILD_VERSION > public/version.txt
 EXPOSE 3000
 CMD ["node", "server.js"]
