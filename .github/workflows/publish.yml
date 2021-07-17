@@ -1,8 +1,8 @@
 name: publish
 
-on: 
+on:
   release:
-    types: 
+    types:
       - published
     tags:
       - v*
@@ -17,11 +17,11 @@ jobs:
     - name: Get the tag version
       id:  get_version
       run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      
+
     - name: Build the estimation-matrix Docker image and publish to GH
       run: |
         echo $CR_PAT | docker login ghcr.io -u vagnerr --password-stdin
-        docker build . --tag ghcr.io/vagnerr/estimation-matrix:latest --tag ghcr.io/vagnerr/estimation-matrix:${{ steps.get_version.outputs.VERSION }}
+        docker build . --tag ghcr.io/vagnerr/estimation-matrix:latest --tag ghcr.io/vagnerr/estimation-matrix:${{ steps.get_version.outputs.VERSION }}  --build-arg VERSION=${{ steps.get_pr.outputs.VERSION }}
         docker push ghcr.io/vagnerr/estimation-matrix --all-tags
       env:
         CR_PAT: ${{ secrets.CR_PAT }}
