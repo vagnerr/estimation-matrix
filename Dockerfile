@@ -5,6 +5,6 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN echo $VERSION > version.html
+RUN echo $VERSION > public/version.txt
 EXPOSE 3000
 CMD ["node", "server.js"]
