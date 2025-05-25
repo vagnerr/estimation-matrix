@@ -23,6 +23,7 @@ function setup() {
   socket.on('reset', resetCanvas);
   socket.on('users', updateUsers);
 
+  sendRoomName(room);
   // Check the content of the Name field and send
   // if its not blank. That way should the connection
   // be lost and re-established (server goes away) the
@@ -179,4 +180,12 @@ function updateUsers(data){
   }
   users.innerHTML = "<p>Users</p><ul class='list-group list-group-flush'>" + userhtml + "</ul>"
 
+}
+
+function sendRoomName(roomName) {
+  console.log('sending room name');
+  var data = {
+    room: roomName
+  }
+  socket.emit('room', data);
 }

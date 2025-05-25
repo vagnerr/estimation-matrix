@@ -1,9 +1,16 @@
 var express = require('express');
+const { SocketAddress } = require('net');
 
 var app = express();
 var server = app.listen(3000);
 
-app.use(express.static('public'));
+app.use('/',express.static('lobby'));  // TODO: happy with 'lobby'
+//app.use('/static',express.static('room'));  // TODO: rename to 'room' remove static data that now resides in 'lobby'
+const path = require('path');
+
+app.get('/room/:room', (req, res) => {  // TODO: happy with '/:room'? shoult it be '/room/:room'?
+  res.sendFile(path.join(__dirname, 'room', 'index.html'));
+});
 
 console.log("Server running");
 
@@ -13,7 +20,7 @@ var io = socket(server);
 
 io.sockets.on('connection', newConnection);
 
-var state = { name: {}, last: {}, disconnect: {}};
+var state = { name: {}, last: {}, disconnect: {}, room: {} };  // TODO: should this be a class?
 
 function newConnection(socket) {
   console.log('new connection: ' + socket.id);
@@ -21,6 +28,7 @@ function newConnection(socket) {
   socket.on('command', processCommand);
   socket.on('name', receiveUserName);
   socket.on('disconnect', clientDisconnect);
+  socket.on('room', setRoom);
   state[socket.id]={};
 
   broadcastUserState();
@@ -82,13 +90,14 @@ function newConnection(socket) {
    *
    * @returns user_state object
    */
-  function broadcastUserState() {
+  function broadcastUserState() {  // TODO breakup by room
     let user_state = {}
     for (let id in state['name']){
       user_state[id]={
         name: state['name'][id],
         active: state['disconnect'][id]?false:true,
-        voted: state['last'][id]?true:false
+        voted: state['last'][id]?true:false,
+        room: state['room']?state['room'][id]:null
       }
     }
     io.sockets.emit('users',user_state);
@@ -101,6 +110,14 @@ function newConnection(socket) {
     delete state['name'][id];
     delete state['last'][id];
     delete state['disconnect'][id];
+  }
+  function setRoom(room) {
+    console.log(`Client ${socket.id} joining room: ` + JSON.stringify(room));
+    state['room'][socket.id] = room.room;
+    let user_state = broadcastUserState();
+    console.log(user_state);
+    // socket.join(room);
+    // state[socket.id].room = room;
   }
 }
 

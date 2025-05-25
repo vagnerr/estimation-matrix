@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <title>Estimation Matrix</title>
+  <title>Estimation Matrix: Lobby</title>
   <style>
     body {
       padding: 0;
@@ -12,7 +12,7 @@
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.2.0/p5.min.js" integrity="sha512-b/htz6gIyFi3dwSoZ0Uv3cuv3Ony7EeKkacgrcVg8CMzu90n777qveu0PBcbZUA7TzyENGtU+qZRuFAkfqgyoQ==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js" integrity="sha512-WL6WGKMPBiM9PnHRYIn5YEtq0Z8XP4fkVb4qy7PP4vhmYQErJ/dySyXuFIMDf1eEYCXCrQrMJfkNwKc9gsjTjA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   <script src="sketch.js"></script>
@@ -45,7 +45,7 @@
   <div class="container-fluid banner-header" >
   <a class="github-fork-ribbon" href="https://github.com/vagnerr/estimation-matrix" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
-    <h1>Estimation Matrix</h1>
+    <h1>Estimation Matrix: Lobby</h1>
   </div>
   <div class="container">
     <div class="row">
@@ -54,20 +54,9 @@
             <div class="col-md-6">
               <input class="form-control" placeholder="Name" id='userName' type='text' size='20' onkeyup="sendName()"/>
             </div>
-            <div class="col-md-6">
-              <button class="btn btn-secondary" onClick="sendCommand('show');">Show</button>
-              <button class="btn btn-secondary" onClick="sendCommand('hide');">Hide</button>
-              <button class="btn btn-secondary" onClick="sendCommand('reset');">Reset</button><br/>
-            </div>
-        </div>
-        <div id="sketch-holder" class="col-12">
-          <br/>
-          <!-- Sketch canvas goes here-->
         </div>
       </div>
-      <div class="col-md-3 col-lg-5" id="users">
-        <p>Whos who?</p>
-      </div>
+
     </div>
   </div>
 </main>
