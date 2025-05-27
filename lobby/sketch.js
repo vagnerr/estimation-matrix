@@ -24,6 +24,8 @@ function setup() {
   socket.on('users', updateUsers);
 
   sendRoomName(room);
+  setUserName();
+  sendName();
   // Check the content of the Name field and send
   // if its not blank. That way should the connection
   // be lost and re-established (server goes away) the
@@ -41,7 +43,11 @@ function setup() {
 
 }
 
-
+function setUserName() {
+  const userName = sessionStorage.getItem("userName");
+  console.log(JSON.stringify(userName));
+  document.getElementById('userName').value = userName;
+}
 
 
 function hideCanvas() {

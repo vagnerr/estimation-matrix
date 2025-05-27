@@ -40,6 +40,11 @@
       xhttp.send();
       return;
     }
+    function setUserName() {
+      const userName = sessionStorage.getItem("userName");
+      console.log(JSON.stringify(userName));
+      document.getElementById('userName').value = userName;
+    }
   </script>
 
 </head>
@@ -79,7 +84,7 @@
       <span class="text-muted">Version: <span id='version-include'></span></span>
     </div>
   </footer>
-  <script>includeVersion()</script>
+  <script>includeVersion();setUserName();sendName()</script>
 </body>
 
 </html>
