@@ -36,13 +36,14 @@ function newConnection(socket) {
   function clientDisconnect(id){
     console.log(`Client Disconnect: ${socket.id}`)
     state['disconnect'][socket.id] = Date.now();
+    const target_room = state['room'][socket.id] || null;
     // Give the client a little time to re-connect
     // before purging them completely
     var sockid = socket.id;
     setTimeout(function(){
       console.log(`Client Disconnect Timeout: ${sockid}`);
       removeClient(sockid);
-      broadcastUserState();
+      broadcastUserState(target_room);
     },120000)
   }
 
@@ -126,9 +127,9 @@ function newConnection(socket) {
    *
    * @returns user_state object
    */
-  function broadcastUserState() {  // TODO breakup by room
+  function broadcastUserState(explicit_room = null) {
     let user_state = {}
-    let target_room = state['room'][socket.id] || null;
+    let target_room = explicit_room || state['room'][socket.id] || null;
     console.log(`broadcastUserState: target_room=${target_room}`);
     for (let id in state['name']){
       // If the user is in a room, only send them the users in that room
