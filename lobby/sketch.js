@@ -103,7 +103,7 @@ function revealAll(data){
 
 function drawEstimates(data) {
   for (var sid in data['last']) {
-    if (data['last'][sid].x &&
+    if (data['last'][sid] && data['last'][sid].x &&
       data['last'][sid].y &&
       data['name'][sid]) {
       noStroke();
