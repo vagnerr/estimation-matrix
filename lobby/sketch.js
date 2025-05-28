@@ -182,7 +182,7 @@ function updateUsers(data){
   var users = document.getElementById('users')
   var userhtml = ""
   for(var index in data){
-    userhtml += `<li class='list-group-item ${data[index]['active']?"":" disabled"} ${data[index]['voted']?" list-group-item-success":""} '>${data[index]['name']}</li>`
+    userhtml += `<li class='list-group-item ${data[index]['active']?"":" disabled"} ${data[index]['voted']?" list-group-item-success":""} '>${data[index]['name']} ${data[index]['active']?"":" (dc)"}</li>`
   }
   users.innerHTML = "<p>Users</p><ul class='list-group list-group-flush'>" + userhtml + "</ul>"
 
