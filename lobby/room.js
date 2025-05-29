@@ -1,4 +1,3 @@
-//const { text } = require("express");
 
 
 var socket;
@@ -23,6 +22,9 @@ function setup() {
   socket.on('reset', resetCanvas);
   socket.on('users', updateUsers);
 
+  sendRoomName(room);
+  setUserName();
+  sendName();
   // Check the content of the Name field and send
   // if its not blank. That way should the connection
   // be lost and re-established (server goes away) the
@@ -40,11 +42,15 @@ function setup() {
 
 }
 
-
+function setUserName() {
+  const userName = sessionStorage.getItem("userName");
+  //console.log(JSON.stringify(userName));
+  document.getElementById('userName').value = userName;
+}
 
 
 function hideCanvas() {
-  console.log('canvas Hidden');
+  //console.log('canvas Hidden');
   visible=false;
 
   redrawCanvas();
@@ -57,7 +63,7 @@ function hideCanvas() {
 }
 
 function resetCanvas() {
-  console.log('canvas reset');
+  //console.log('canvas reset');
   visible=false;
 
   redrawCanvas();
@@ -85,18 +91,18 @@ function redrawCanvas() {
 }
 
 function revealAll(data){
-  console.log('Showing all marks');
+  //console.log('Showing all marks');
   visible = true;
   lastdata = data;   // keep local copy for refreshes
   redrawCanvas() // deals with drawover
-  console.log(data['last']);
+  //console.log(data['last']);
   //map(data['last']).forEach((value, key) => {
   drawEstimates(data);
 }
 
 function drawEstimates(data) {
   for (var sid in data['last']) {
-    if (data['last'][sid].x &&
+    if (data['last'][sid] && data['last'][sid].x &&
       data['last'][sid].y &&
       data['name'][sid]) {
       noStroke();
@@ -134,10 +140,10 @@ function mouseClicked() {
 
   redrawCanvas();
   if( visible && lastdata ){
-    console.log('drawing everything else');
+    //console.log('drawing everything else');
     drawEstimates(lastdata);
   }
-  console.log(mouseX + ', ' + mouseY);
+  //console.log(mouseX + ', ' + mouseY);
   noStroke();
   fill(255,100,100);
   ellipse(mouseX, mouseY, 6, 6);
@@ -163,20 +169,31 @@ function sendCommand(message) {
 }
 
 function sendName() {
-  console.log('sending name');
   var data = {
     name: document.getElementById('userName').value
   }
-  socket.emit('name', data);
+  socket?.emit('name', data);
 }
 
 function updateUsers(data){
-  console.log('Got user list data',data)
+  //console.log('Got user list data',data)
   var users = document.getElementById('users')
   var userhtml = ""
   for(var index in data){
-    userhtml += `<li class='list-group-item ${data[index]['active']?"":" disabled"} ${data[index]['voted']?" list-group-item-success":""} '>${data[index]['name']}</li>`
+    userhtml += `<li class='list-group-item ${data[index]['active']?"":" disabled"} ${data[index]['voted']?" list-group-item-success":""} '>${data[index]['name']} ${data[index]['active']?"":" (dc)"}</li>`
   }
   users.innerHTML = "<p>Users</p><ul class='list-group list-group-flush'>" + userhtml + "</ul>"
 
+}
+
+function sendRoomName(roomName) {
+  var data = {
+    room: roomName
+  }
+  socket.emit('room', data);
+}
+
+function setUserName() {
+  const userName = sessionStorage.getItem("userName");
+  document.getElementById('userName').value = userName;
 }
