@@ -9,7 +9,7 @@ function checkButtons() {
 }
 
 function redirectToRoom() {
-      const userName = document.getElementById('userName').value;
+  const userName = document.getElementById('userName').value;
 
   document.cookie = "userName=" + encodeURIComponent(userName) + "; path=/; max-age=3600"; // expires in 1 hour
   sessionStorage.setItem("userName", userName);
@@ -21,7 +21,7 @@ function redirectToRoom() {
 }
 
 function createNewRoom() {
-          const userName = document.getElementById('userName').value;
+  const userName = document.getElementById('userName').value;
 
   document.cookie = "userName=" + encodeURIComponent(userName) + "; path=/; max-age=3600"; // expires in 1 hour
   sessionStorage.setItem("userName", userName);

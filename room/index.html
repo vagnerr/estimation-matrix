@@ -27,41 +27,45 @@
 </head>
 <body>
   <main role="main" class="container">
-  <div class="container-fluid banner-header" >
-  <a class="github-fork-ribbon" href="https://github.com/vagnerr/estimation-matrix" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+    <div class="banner-header">
+      <a class="github-fork-ribbon" href="https://github.com/vagnerr/estimation-matrix" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+      <h1>Estimation Matrix</h1>
+    </div>
 
-    <h1>Estimation Matrix</h1>
-  </div>
-  <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-md-9 col-lg-7">
-        <div class="row">
-            <div class="col-md-6">
-              <input class="form-control" placeholder="Name" id='userName' type='text' size='20' onkeyup="sendName()"/>
+        <div class="card p-4">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <input class="form-control" placeholder="Name" id='userName' type='text' size='20' onkeyup="sendName()" />
             </div>
-            <div class="col-md-6">
-              <button class="btn btn-secondary" onClick="sendCommand('show');">Show</button>
-              <button class="btn btn-secondary" onClick="sendCommand('hide');">Hide</button>
-              <button class="btn btn-secondary" onClick="sendCommand('reset');">Reset</button><br/>
+            <div class="col-md-6 mb-3 d-flex align-items-center">
+              <div>
+                <button class="btn btn-secondary" onClick="sendCommand('show');">Show</button>
+                <button class="btn btn-secondary" onClick="sendCommand('hide');">Hide</button>
+                <button class="btn btn-secondary" onClick="sendCommand('reset');">Reset</button>
+              </div>
             </div>
-        </div>
-        <div id="sketch-holder" class="col-12">
-          <br/>
-          <!-- Sketch canvas goes here-->
+          </div>
+          <div id="sketch-holder" class="col-12">
+            <!-- Sketch canvas -->
+          </div>
         </div>
       </div>
       <div class="col-md-3 col-lg-5" id="users">
-        <p>Whos who?</p>
+        <p><strong>Who's who?</strong></p>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+
   <footer class="footer">
     <div class="container">
       <span class="text-muted">Version: <span id='version-include'></span></span>
     </div>
   </footer>
+
   <script>includeVersion();setUserName();sendName()</script>
 </body>
+
 
 </html>

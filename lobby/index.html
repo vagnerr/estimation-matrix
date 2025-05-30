@@ -21,34 +21,34 @@
   <link href="sticky-footer.css" rel="stylesheet">
 </head>
 <body>
-  <main role="main" class="container">
-  <div class="container-fluid banner-header" >
-  <a class="github-fork-ribbon" href="https://github.com/vagnerr/estimation-matrix" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
-
+<main role="main" class="container">
+  <div class="banner-header">
+    <a class="github-fork-ribbon" href="https://github.com/vagnerr/estimation-matrix" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
     <h1>Estimation Matrix: Lobby</h1>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9 col-lg-7">
-        <div class="row">
-            <div class="col-md-6">
-              Name: <input class="form-control" placeholder="Name" id='userName' type='text' size='20' oninput="checkButtons()"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-              Room ID:<input class="form-control" placeholder="Room" id='roomId' type='text' size='20'  oninput="checkButtons()"/>
-            </div>
-        </div>
-        <div class="col-md-6">
-          <button id="joinBtn" class="btn btn-secondary" onClick="redirectToRoom()" disabled>Join Room</button>
-          <button id="newRoomBtn" class="btn btn-secondary" onClick="createNewRoom()" disabled>Create New Room</button>
-        </div>
-      </div>
 
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <form>
+          <div class="mb-3">
+            <label for="userName" class="form-label">Name:</label>
+            <input class="form-control" placeholder="Enter your name" id="userName" type="text" oninput="checkButtons()" />
+          </div>
+          <div class="mb-3">
+            <label for="roomId" class="form-label">Room ID:</label>
+            <input class="form-control" placeholder="Enter room ID" id="roomId" type="text" oninput="checkButtons()" />
+          </div>
+          <div>
+            <button type="button" id="joinBtn" class="btn btn-secondary" onClick="redirectToRoom()" disabled>Join Room</button>
+            <button type="button" id="newRoomBtn" class="btn btn-secondary" onClick="createNewRoom()" disabled>Create New Room</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </main>
+
   <footer class="footer">
     <div class="container">
       <span class="text-muted">Version: <span id='version-include'></span></span>
